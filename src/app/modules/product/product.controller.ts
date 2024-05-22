@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { productServices } from "./product.service";
-import { error } from "console";
 import productValidationSchema from "./product.validation";
 
 // Create a new product
