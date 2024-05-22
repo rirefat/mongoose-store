@@ -1,6 +1,31 @@
 import { Schema, model } from "mongoose";
-import { TProduct } from "./product.interface";
+import { TInventory, TProduct, TVariant } from "./product.interface";
 
+const variantSchema = new Schema<TVariant>(
+    {
+        type: {
+            type: String,
+            required: [true, 'Variant type is required']
+        },
+        value: {
+            type: String,
+            required: [true, 'Variant value is required']
+        }
+    }
+);
+
+const inventorySchema = new Schema<TInventory>(
+    {
+        quantity: {
+            type: Number,
+            required: [true, "Quantity is required"]
+        },
+        inStock: {
+            type: Boolean,
+            required: [true, "Required inStock information"]
+        }
+    }
+)
 
 const productSchema = new Schema<TProduct>({
     name: {
@@ -15,7 +40,8 @@ const productSchema = new Schema<TProduct>({
     },
     price: {
         type: Number,
-        required: [true, "Required Product Price"]
+        required: [true, "Required Product Price"],
+        min: [0, 'Invalid product price'],
     },
     category: {
         type: String,
@@ -26,31 +52,13 @@ const productSchema = new Schema<TProduct>({
         required: [true, "Required Product Tags"]
     },
     variants: {
-        type: [
-            {
-                type: {
-                    type: String,
-                    required: [true, 'Variant is required']
-                },
-                value: {
-                    type: Number,
-                    required: [true, 'Variant value is required']
-                }
-            }
-        ]
+        type: [variantSchema],
+        required: [true, 'Variant is required']
     },
     inventory: {
-        type: {
-            quantity: {
-                type: Number,
-                required: [true, "Quantity is required"]
-            },
-            inStock: {
-                type: Boolean,
-                required: [true, "Required inStock information"]
-            }
-        }
+        type: inventorySchema,
+        required: [true, 'Inventory information is required']
     }
 });
 
-const Product = model<TProduct>('Product', productSchema);
+export const Product = model<TProduct>('Product', productSchema);
