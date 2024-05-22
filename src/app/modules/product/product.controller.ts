@@ -1,37 +1,64 @@
 import { Request, Response } from "express";
 import { productServices } from "./product.service";
+import { error } from "console";
+import productValidationSchema from "./product.validation";
 
 // Create a new product
 const createProduct = async (req: Request, res: Response) => {
     try {
         const { product: productData } = req.body;
-        const result = await productServices.createProductIntoDB(productData);
+        const parsedData = productValidationSchema.parse(productData)
+        const result = await productServices.createProductIntoDB(parsedData);
 
         // sending response
         res.status(200).json({
             success: true,
-            message: "New Product is created",
+            response: "New Product is created",
             data: result
         });
     } catch (err) {
-        console.log(err);
+        res.status(500).json({
+            success: false,
+            response: "Something went wrong",
+            error: err
+        });
     }
 };
 
 // Retrieve a list of all products
 const getAllProducts = async (req: Request, res: Response) => {
     try {
-        const result = await productServices.getAllProductsFromDB();
+        const { searchTerm } = req.query;
+        const result = await productServices.getAllProductsFromDB(searchTerm);
 
-        // sending response
-        res.status(200).json({
-            success: true,
-            message: "Retrieve a list of all products successfully",
-            data: result
-        });
+        if (searchTerm) {
+            if (result.length > 0) {
+                res.status(200).json({
+                    success: true,
+                    response: "Retrieve your desire product successfully",
+                    data: result
+                });
+            } else {
+                res.status(500).json({
+                    success: false,
+                    response: "No product matched",
+                    data: result
+                });
+            }
+        } else {
+            res.status(200).json({
+                success: true,
+                response: 'Products retrieved successfully!',
+                data: result
+            });
+        }
 
     } catch (err) {
-        console.log(err)
+        res.status(500).json({
+            success: false,
+            response: "Something went wrong",
+            error: err
+        });
     }
 }
 
@@ -43,19 +70,23 @@ const getSingleProduct = async (req: Request, res: Response) => {
 
         // Error handling for not found products
         if (!result) {
-            return res.status(404).json({
+            res.status(500).json({
                 success: false,
-                message: "Product not found!!"
+                response: "Product not found!!"
             })
         }
         // sending response
         res.status(200).json({
             success: true,
-            message: "Retrieve single product successfully",
+            response: "Retrieve single product successfully",
             data: result
         })
     } catch (err) {
-        console.log(err)
+        res.status(500).json({
+            success: false,
+            response: "Something went wrong",
+            error: err
+        });
     }
 }
 
@@ -68,45 +99,53 @@ const updateProduct = async (req: Request, res: Response) => {
 
         // Error handling for not found product
         if (!result) {
-            return res.status(404).json({
+            res.status(500).json({
                 success: false,
-                message: "Product not found"
+                response: "Product not found"
             })
         }
 
         // Sending response
         res.status(200).json({
             success: true,
-            message: "Successfully updated the product",
+            response: "Successfully updated the product",
             data: result
         })
     } catch (err) {
-        console.log(err);
+        res.status(500).json({
+            success: false,
+            response: "Something went wrong",
+            error: err
+        });
     }
 }
 
 // Delete product from db
-const deleteProduct = async (req: Request, res: Response)=>{
-    try{
-        const {productId} = req.params;
+const deleteProduct = async (req: Request, res: Response) => {
+    try {
+        const { productId } = req.params;
         const result = await productServices.deleteProductFromDB(productId);
 
         // Error handling 
-        if(!result){
-            return res.status(404).json({
+        if (!result) {
+            res.status(500).json({
                 success: false,
-                message: "Product not found"
+                response: "Product not found"
             })
         }
 
         // sending response
         res.status(200).json({
             success: true,
-            message: "Successfully deleted the product",
+            response: "Successfully deleted the product",
             data: result
         })
-    }catch(err){
-        console.log(err);
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            response: "Something went wrong",
+            error: err
+        });
     }
 }
 
