@@ -1,6 +1,6 @@
 # Mongoose Store
+Mongoose Store is a Node.js application built with Express.js that provides a simple store management system. This project uses MongoDB for database operations and Mongoose as the ODM (Object Data Modeling) library to interact with MongoDB. The application is written in TypeScript and allows users to manage products, and orders.
 
-Mongoose Store is a Node.js application that provides a simple store management system. This project uses MongoDB for database operations and Mongoose as the ODM (Object Data Modeling) library to interact with MongoDB. The application allows users to manage products, customers, and orders.
 
 ## Table of Contents
 
@@ -79,3 +79,6 @@ After starting the application, you can use tools like Postman or cURL to intera
 - GET `/api/orders` - Retrieve all orders.
 - GET `/api/orders?email=email@gmail.com` - Retrieve a single order by email.
 - POST `/api/orders` - Create a new order.
+
+## Live Server
+You can access the live server at ` https://mongoose-store-backend.vercel.app `

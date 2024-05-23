@@ -13,7 +13,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRouters);
 
 app.get('/', (req:Request, res:Response) => {
-  res.send('Hello Mongoose Store!')
+  res.send('Welcome to Mongoose Store!')
 })
 
 export default app;

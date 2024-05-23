@@ -15,6 +15,6 @@ app.use((0, cors_1.default)());
 app.use('/api/products', product_route_1.productRoutes);
 app.use('/api/orders', order_router_1.orderRouters);
 app.get('/', (req, res) => {
-    res.send('Hello Mongoose Store!');
+    res.send('Welcome to Mongoose Store!');
 });
 exports.default = app;
