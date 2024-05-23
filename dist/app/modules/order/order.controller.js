@@ -27,6 +27,37 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         console.log(err);
     }
 });
+// Get all orders
+const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { email } = req.query;
+        const result = yield order_service_1.orderServices.getAllOrdersFromDB(email);
+        let response;
+        if (email) {
+            if (result.length > 0) {
+                response = "Retrieved your order successfully";
+            }
+            else {
+                response = "No order found!!";
+            }
+        }
+        else {
+            response = "All orders are retrieved successfully";
+        }
+        res.status(200).json({
+            success: true,
+            message: response,
+            data: result,
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            error: err
+        });
+    }
+});
 exports.orderControllers = {
     createOrder,
+    getAllOrders
 };
