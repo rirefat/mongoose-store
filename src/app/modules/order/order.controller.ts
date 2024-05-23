@@ -5,7 +5,7 @@ import orderValidationSchema from "./order.validation";
 // Create new order
 const createOrder = async (req: Request, res: Response) => {
     try {
-        const { order: orderData } = req.body;
+        const orderData = req.body;
         const parsedData = orderValidationSchema.parse(orderData)
         const result = await orderServices.createOrderIntoDB(parsedData);
 

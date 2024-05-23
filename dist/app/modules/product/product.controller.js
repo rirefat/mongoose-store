@@ -18,7 +18,7 @@ const product_validation_1 = __importDefault(require("./product.validation"));
 // Create a new product
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { product: productData } = req.body;
+        const productData = req.body;
         const parsedData = product_validation_1.default.parse(productData);
         const result = yield product_service_1.productServices.createProductIntoDB(parsedData);
         // sending response

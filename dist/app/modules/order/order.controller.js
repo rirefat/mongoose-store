@@ -18,7 +18,7 @@ const order_validation_1 = __importDefault(require("./order.validation"));
 // Create new order
 const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { order: orderData } = req.body;
+        const orderData = req.body;
         const parsedData = order_validation_1.default.parse(orderData);
         const result = yield order_service_1.orderServices.createOrderIntoDB(parsedData);
         // sending response
