@@ -10,6 +10,7 @@ Mongoose Store is a Node.js application built with Express.js that provides a si
 - [Running the Application](#running-the-application)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
+- [Live Server](#live-server)
 
 ## Features
 
@@ -81,4 +82,4 @@ After starting the application, you can use tools like Postman or cURL to intera
 - POST `/api/orders` - Create a new order.
 
 ## Live Server
-You can access the live server at ` https://mongoose-store-backend.vercel.app `
+You can access the live server at [https://mongoose-store-backend.vercel.app](https://mongoose-store-backend.vercel.app)
