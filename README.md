@@ -82,4 +82,4 @@ After starting the application, you can use tools like Postman or cURL to intera
 - POST `/api/orders` - Create a new order.
 
 ## Live Server
-You can access the live server at [https://mongoose-store-backend.vercel.app](https://mongoose-store-backend.vercel.app)
+You can access the live server at [https://mongoose-store-server.vercel.app](https://mongoose-store-server.vercel.app)
